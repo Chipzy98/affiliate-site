@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "Affiliate disclosure" };
 export default function DisclosurePage() {
   return (
     <div className="container-page max-w-3xl py-12">
-      <h1 className="text-3xl font-extrabold tracking-tight">Affiliate disclosure</h1>
+      <h1 className="font-display text-4xl font-extrabold tracking-tight">Affiliate disclosure</h1>
       <div className="mt-6 space-y-4 leading-relaxed text-slate-700">
         <p>
           {site.name} is reader-supported. Some links on this website are affiliate links. If you click one and make a
