@@ -95,11 +95,11 @@ export default function ProductForm({ product, categories }: { product?: Product
             <input name="slug" defaultValue={product?.slug} className="input" placeholder="sony-wh-1000xm5" />
           </Field>
           <label className="flex items-center gap-3 text-sm font-medium">
-            <input type="checkbox" name="featured" defaultChecked={product?.featured ?? false} className="h-4 w-4 accent-orange-500" />
+            <input type="checkbox" name="featured" defaultChecked={product?.featured ?? false} className="h-4 w-4 accent-[#2f3beb]" />
             ⭐ Show in “Top picks”
           </label>
           <label className="flex items-center gap-3 text-sm font-medium">
-            <input type="checkbox" name="active" defaultChecked={product?.active ?? true} className="h-4 w-4 accent-orange-500" />
+            <input type="checkbox" name="active" defaultChecked={product?.active ?? true} className="h-4 w-4 accent-[#2f3beb]" />
             Visible on the website
           </label>
         </section>

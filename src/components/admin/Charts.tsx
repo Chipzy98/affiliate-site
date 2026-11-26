@@ -95,7 +95,7 @@ export function DailyChart({ data }: { data: { day: string; views: number; visit
           const x = pad.l + i * step + (step - barW) / 2;
           return (
             <g key={d.day}>
-              <rect x={x} y={y(d.visitors)} width={barW} height={pad.t + innerH - y(d.visitors)} rx={3} fill="#f97316">
+              <rect x={x} y={y(d.visitors)} width={barW} height={pad.t + innerH - y(d.visitors)} rx={3} fill="#2f3beb">
                 <title>{`${d.day}: ${d.visitors} visitors, ${d.views} page views, ${d.clicks} clicks`}</title>
               </rect>
               {i % labelEvery === 0 && (

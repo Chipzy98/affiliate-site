@@ -1,16 +1,20 @@
 import Link from "next/link";
 import type { ProductCardData } from "@/lib/types";
 import { discountPercent } from "@/lib/format";
+import { ExternalIcon } from "./Icons";
 import Stars from "./Stars";
 
 export default function ProductCard({ product, priority = false }: { product: ProductCardData; priority?: boolean }) {
   const off = discountPercent(product.price, product.original_price);
 
   return (
-    <article className="group card flex flex-col overflow-hidden transition hover:-translate-y-0.5 hover:shadow-md">
-      <Link href={`/p/${product.slug}`} className="relative block aspect-square bg-white p-4">
+    <article className="group flex min-w-0 flex-col">
+      <Link
+        href={`/p/${product.slug}`}
+        className="relative block aspect-square overflow-hidden rounded-[1.25rem] bg-white p-5 ring-1 ring-line transition group-hover:ring-ink/20 sm:p-7"
+      >
         {product.image_url ? (
-          // Plain <img> so external store images load directly from their fast CDNs
+          // Plain <img> so store images load straight from their fast CDNs
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={product.image_url}
@@ -20,39 +24,48 @@ export default function ProductCard({ product, priority = false }: { product: Pr
             loading={priority ? "eager" : "lazy"}
             decoding="async"
             fetchPriority={priority ? "high" : "auto"}
-            className="h-full w-full object-contain text-transparent transition duration-300 group-hover:scale-[1.03]"
+            className="h-full w-full object-contain text-transparent transition duration-500 group-hover:scale-[1.04]"
           />
         ) : (
-          <div className="grid h-full place-items-center text-5xl">🛍️</div>
+          <div className="grid h-full place-items-center text-muted">No image</div>
         )}
         {off && (
-          <span className="absolute left-3 top-3 rounded-full bg-red-500 px-2.5 py-1 text-xs font-bold text-white">
-            -{off}%
+          <span className="absolute left-3 top-3 rounded-full bg-ink px-2.5 py-1 text-xs font-bold tabular-nums text-tag">
+            {off}% off
           </span>
         )}
-        <span className="absolute right-3 top-3 rounded-full bg-slate-900/80 px-2.5 py-1 text-[11px] font-semibold text-white">
-          {product.store}
-        </span>
       </Link>
 
-      <div className="flex flex-1 flex-col gap-2 border-t border-slate-100 p-4">
-        <p className="text-xs font-medium uppercase tracking-wide text-brand-600">{product.category}</p>
-        <Link href={`/p/${product.slug}`} className="line-clamp-2 font-semibold leading-snug text-ink hover:text-brand-600">
+      <div className="flex flex-1 flex-col px-0.5 pt-3">
+        <p className="text-xs font-medium text-muted">{product.store}</p>
+        <Link
+          href={`/p/${product.slug}`}
+          className="mt-0.5 line-clamp-2 text-[15px] font-medium leading-snug text-ink decoration-brand-500 decoration-2 underline-offset-4 hover:underline"
+        >
           {product.title}
         </Link>
-        <Stars rating={product.rating} />
-        <div className="mt-auto flex flex-col gap-2 pt-2 sm:flex-row sm:items-end sm:justify-between">
-          <div className="min-w-0">
-            {product.price && <p className="truncate text-lg font-extrabold text-ink">{product.price}</p>}
-            {off && <p className="truncate text-xs text-slate-400 line-through">{product.original_price}</p>}
+        <div className="mt-1.5 min-h-5">
+          <Stars rating={product.rating} />
+        </div>
+
+        <div className="mt-auto flex items-center justify-between gap-2 pt-3">
+          <div className="flex min-w-0 flex-col">
+            {product.price ? (
+              <span className="price-tag self-start text-base sm:text-lg">{product.price}</span>
+            ) : (
+              <span className="text-sm font-medium text-muted">See price</span>
+            )}
+            {off && <span className="mt-1 truncate text-xs tabular-nums text-muted line-through">{product.original_price}</span>}
           </div>
           <a
             href={`/go/${product.id}`}
             target="_blank"
             rel="nofollow sponsored noopener"
-            className="btn-primary w-full shrink-0 rounded-full px-4 py-2 sm:w-auto"
+            aria-label={`Get deal on ${product.store} (opens in a new tab)`}
+            className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-500 text-white transition hover:bg-brand-600 sm:flex sm:h-auto sm:w-auto sm:gap-1.5 sm:px-4 sm:py-2.5 sm:text-sm sm:font-semibold"
           >
-            View deal
+            <span className="hidden sm:inline">Get deal</span>
+            <ExternalIcon className="h-4 w-4" />
           </a>
         </div>
       </div>
