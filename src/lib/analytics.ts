@@ -1,7 +1,7 @@
 import "server-only";
 import { sql, safe } from "./db";
 
-const TZ = process.env.ANALYTICS_TZ || "UTC";
+const TZ = process.env.ANALYTICS_TZ || "Asia/Colombo";
 
 export type Row = { label: string; value: number; extra?: number };
 
